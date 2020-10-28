@@ -11,6 +11,13 @@ import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
 
+//Importing Appointment components
+import Appointment from "components/Appointment/index";
+import Header from "components/Appointment/Header";
+
+
+
+
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -135,3 +142,13 @@ storiesOf("DayList", module)
           setInterviewer={action("setInterviewer")}
         />
       ));
+
+      //Appointment component
+
+      storiesOf("Appointment", module)
+      .addParameters({
+        backgrounds: [{name: "white", value: "#fff", default: true}]
+      })
+      .add("Appointment", () => <Appointment />)
+      .add("Appointment with Time", () => < Appointment time ="12pm"/>)
+      .add("Header", () => <Header time="12pm" />)
