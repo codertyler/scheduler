@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+
 import "./styles.scss";
 import Confirm from "./Confirm";
 import Empty from "./Empty";
@@ -8,10 +9,101 @@ import Header from "./Header";
 import Show from "./Show";
 import Status from "./Status";
 
-export const index = () => {
+import useVisualMode from "hooks/useVisualMode";
+
+// identifiers to switch to any mode
+const CONFIRM = "CONFIRM";
+const CREATE = "CREATE";
+const DELETE = "DELETE";
+const EDIT = "EDIT";
+const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_SAVE = "ERROR_SAVE";
+const EMPTY = "EMPTY";
+const SAVING = "SAVING";
+const SHOW = "SHOW";
+
+export default function Appointment(props) {
+  const {
+    interview,
+    interviewers = [],
+    bookInterview,
+    id,
+    cancelInterview,
+  } = props;
+
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
+
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer,
+    };
+
+    if (interview && name) {
+      transition(SAVING);
+
+      bookInterview(id, interview)
+        .then(() => transition(SHOW))
+        .catch(() => transition(ERROR_SAVE, true));
+    }
+  };
+
+  const confirmBox = (event) => {
+    event.preventDefault();
+    transition(CONFIRM);
+  };
+
+  const confirmDelete = () => {
+    transition(DELETE, true);
+
+    cancelInterview(id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
+  };
+
   return (
-    <div>
-      
-    </div>
-  )
+    <article className="appointment" data-testid="appointment">
+      <Header time={props.time} />
+
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === CREATE && (
+        <Form onCancel={back} interviewers={interviewers} onSave={save} />
+      )}
+      {mode === SHOW && (
+        <Show
+          student={interview.student}
+          interviewer={interview.interviewer.name}
+          onEdit={() => transition(EDIT)}
+          onDelete={confirmBox}
+        />
+      )}
+
+      {mode === SAVING && <Status message={"Saving"} />}
+      {mode === ERROR_SAVE && (
+        <Error message="Couldn't save an appoitment" onClose={back} />
+      )}
+      {mode === DELETE && <Status message={"Deleting"} />}
+      {mode === ERROR_DELETE && (
+        <Error message="Couldn't delete an appoitment" onClose={back} />
+      )}
+
+      {mode === CONFIRM && (
+        <Confirm
+          message={"Are you sure deleting it ?"}
+          onCancel={back}
+          onConfirm={confirmDelete}
+        />
+      )}
+
+      {mode === EDIT && (
+        <Form
+          name={interview.student}
+          interviewers={interviewers}
+          interviewer={interview.interviewer.id}
+          onSave={save}
+          onCancel={back}
+        />
+      )}
+    </article>
+  );
 }
