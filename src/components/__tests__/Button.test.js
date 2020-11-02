@@ -6,7 +6,7 @@ import Button from "components/Button";
 
 afterEach(cleanup);
 
-it("It renders", () => {
+it("renders without crashing", () => {
   render(<Button />);
 });
 
