@@ -1,4 +1,4 @@
-// # 1
+// 1
 const getAppointmentsForDay = (state, day) => {
   const appointmentsId = state.days
     .filter((e) => e.name === day)
@@ -11,7 +11,7 @@ const getAppointmentsForDay = (state, day) => {
   return appointment;
 };
 
-// # 2
+// 2
 const getInterview = (state, interview) => {
   if (!interview) return null;
   const myInterview = {
@@ -21,7 +21,7 @@ const getInterview = (state, interview) => {
   return myInterview;
 };
 
-// # 3
+// 3
 const getInterviewersForDay = (state, day) => {
   const interviewersId = state.days
     .filter((e) => e.name === day)
