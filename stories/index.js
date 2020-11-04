@@ -193,20 +193,20 @@ storiesOf("DayList", module)
         />
       ))
       .add("Appointment Empty", () => (
-        <>
+        <Fragment>
           <Appointment id={1} time="12pm" onAdd={action("onAdd")} />
           <Appointment id="last" time="1pm" onAdd={action("onAdd")} />
-        </>
+        </Fragment>
       ))
       .add("Appointment Booked", () => (
-        <>
+        <Fragment>
           <Appointment
             id={1}
             time="12pm"
             interview={{ student: "Lydia Miller-Jones", interviewer }}
           />
           <Appointment id="last" time="1pm" />
-        </>
+        </Fragment>
       ));
       
 
