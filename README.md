@@ -33,6 +33,13 @@ npm start
 npm test
 ```
 
+## Running Cypress Test
+
+```sh
+npm run cypress
+```
+
+
 ## Running Storybook Visual Testbed
 
 ```sh
