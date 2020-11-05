@@ -3,17 +3,17 @@ This is an interview scheduler app for a single user built on React JS. It uses 
 
 ### Screenshots
 
-The main page
+### The main page
 ![image](https://github.com/codertyler/scheduler/blob/master/public/screenshots/main.png)
 
-Adding an interviewer
+### Adding an interviewer
 
 ![image](https://github.com/codertyler/scheduler/blob/master/public/screenshots/adding_interview.png)
 
-Deleting an interview
+### Deleting an interview
 ![image](https://github.com/codertyler/scheduler/blob/master/public/screenshots/editing.png)
 
-Editing an interview 
+### Editing an interview 
 ![image](https://github.com/codertyler/scheduler/blob/master/public/screenshots/editing.png)
 
 
